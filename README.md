@@ -74,3 +74,13 @@ Methods:
 - MazeKnowledgeBase constructor giving the knowledge base (KB) a set of clauses
 - tell parameterized by a MazeClause: adds that clause to the KB
 - ask parameterized by a query in the form of a MazeClause: returns true if the KB entails the query, false otherwise (used the definition of entailment to write this method)
+
+## Homework 3
+The aim of this project was to create a decision-network-based Ad Agent that maximizes the sales of a certain product (in this case a "Defendotron", a made-up security system that comes in two different models) based on any user's collected demographic data. For this project, the Ad Agent had to choose one of two music choices for the ad and one of two visual choices for the ad. Given 100,000 data points of demographic data (in hw3_data.csv) I created a Bayesian Network structure and then passed in that structure as a parameter to the pomegranate library's BayesianNetwork.from_structure method to create my Bayesian Network model. Using this model, I used enumeration inference to decide which ads to show the user in order to maximize the sales of the product.
+
+#### ad_engine.py
+Class AdEngine
+
+Methods:
+- AdEngine constructor parameterized by a data file (in this case hw3_data.csv), the structure for the BN, the decision varibles (Ad1 and Ad2), and a utility map (maps the amount of money gained from the sale of each model of the "Defendotron"): state_names are the names of the different metrics that data was collected on, and the constructor creates the model of the BN based on the structure and the state_names
+- decide parameterized by evidence (given in the form of a dictionary like {"T": 1}): returns the best combo of musical and visual ads to show to maximize sales in the form of a dictionary (like {"Ad1": 0, "Ad2": 1})
