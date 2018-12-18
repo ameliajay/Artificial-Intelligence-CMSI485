@@ -51,3 +51,26 @@ Methods:
 - heuristicCost parameterized by state and list of goals still needing to be visited: returns the heuristic cost (measured by Mahattan Distance) from state to the nearest goal
 - make_soln parameterized by a SearchTreeNode: returns the path that was used to get to that node
 - solve parameterized by a MazeProblem, an initial state, and a list of goal states: uses a min heap to decide which nodes to visit next in order to find the optimal cost path solution and returns that solution in a list of directions
+
+## Homework 2a
+The aim of this project was to implement a basic propositional logic inference engine for use in a maze pitfall problem. (Example of a maze pitfall problem: an agent is in a maze with an initial state and a goal state and must make their way to the goal state without falling into any pits on the way. The states surrounding the pits would be "warning states" which would give us more information for our inference engine about the location of the pits.) The logic inference engine had these restrictions: the maze knowledge base must be in Conjuctive Normal Form (a conjuction of clauses made up of a disjunction of propositions), all queries for the knowledge base must be made in the form of clauses, and inference must be implemented using resolution.
+
+#### maze_clause.py
+Class MazeClause
+
+Methods:
+- MazeClause constructor parameterized by a list of maze propositions (a proposition is in the form of a tuple in the form ((symbol, location), True or False value)): it checks if the clause is valid (valid means that the clause is logically equivalent to true) and adds a dictionary of propositions and their truth values
+- get_prop parameterized by a proposition: returns the truth value of that proposition
+- is_valid: returns whether or not a MazeClause is valid
+- is_empty: returns whether or not a MazeClause has any propositions in it
+- eq (equals) parameterized by another MazeClause: returns true if the two clauses have the same propositions (order does not matter) and are both valid
+- hash: hases an immutable set of the stored propositions for ease of lookup in a set
+- resolve (static method) parameterized by two clauses: returns a set containing the resulting clause after implementing resolution on the two clauses given; uses the not_resolved method parameterized by a proposition and the combined list of propositions from both clauses which returns the set of propositions that still need to be resolved
+
+#### maze_knowledge_base.py
+Class MazeKnowledgeBase
+
+Methods:
+- MazeKnowledgeBase constructor giving the knowledge base (KB) a set of clauses
+- tell parameterized by a MazeClause: adds that clause to the KB
+- ask parameterized by a query in the form of a MazeClause: returns true if the KB entails the query, false otherwise (used the definition of entailment to write this method)
